@@ -11,7 +11,7 @@
     - react
     - redux
     - typescript
-    - materialUi
+    - material-ui
     - axios interceptors
 
 ## Features

@@ -29,7 +29,7 @@ app.get('/', (req,res) => res.send('Phone Number Api'));
 
 
 // port setup
-const PORT: string | number = process.env.API_PORT || 8000
+const PORT: string | number = process.env.API_PORT || 8001
 // start server
 mongoose
     .connect(uri, options)
