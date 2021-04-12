@@ -1,10 +1,17 @@
 import React from 'react';
+import {useRoutes} from "react-router-dom";
+import {ThemeProvider} from '@material-ui/core';
+import routes from "./routing";
+import {lightTheme} from "./styles/themes";
+import GlobalStyles from "./styles/globalStyles";
 
-function App() {
+const App = () => {
+    const routing = useRoutes(routes);
   return (
-    <div >
-      Let's make this soon
-    </div>
+      <ThemeProvider theme={lightTheme}>
+          <GlobalStyles/>
+          {routing}
+      </ThemeProvider>
   );
 }
 
