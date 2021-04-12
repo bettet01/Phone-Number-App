@@ -2,6 +2,7 @@ import {Form, Formik} from "formik";
 import * as Yup from 'yup';
 import TextInput from "../components/forms/TextInput";
 import {Button, makeStyles} from "@material-ui/core";
+import http from "../config/authorizationInterceptor";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -33,10 +34,11 @@ const LandingPage = () => {
                         .required("Password is required")
                 })}
                 onSubmit={(values, {setSubmitting}) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values))
-                        setSubmitting(false)
-                    }, 2000)
+                    http.get("http://localhost:8000/api/numbers").then((res) => {
+                        console.log(res);
+                    }).catch((err) => {
+                        console.log("message " + err)
+                    })
                 }}
             >
                 <Form className={classes.form}>

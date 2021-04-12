@@ -5,7 +5,7 @@ import Role from "../models/Role";
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const secret =  process.env.SECRET || "Hello_World"
-    let token = req.headers["authorization"];
+    let token = req.headers["authorization"] as string;
     const bearerMark = token?.split(" ")[0]
     token = token?.split(" ")[1]
 

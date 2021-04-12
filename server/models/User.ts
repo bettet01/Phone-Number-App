@@ -17,7 +17,7 @@ const UserDao: Schema = new Schema({
         type: String,
         required: true
     },
-    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: "Role", required: false}]
+    roles: [{ type: mongoose.Schema.Types.ObjectId, ref: "roles", required: false}]
 })
 
 export default model<User>("users", UserDao);
