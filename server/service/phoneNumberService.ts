@@ -5,7 +5,8 @@ import PhoneNumberDao from "../models/PhoneNumber";
 const getNumbers = async (req: Request, res: Response): Promise<void> => {
     console.log("Getting Numbers")
     try {
-        const numbers: PhoneNumber[] = await PhoneNumberDao.find();
+        // @ts-ignore
+        const numbers: PhoneNumber[] = await PhoneNumberDao.find({user: req.userId});
         res.status(200).json({numbers: numbers} as NumbersResponse)
     } catch (error) {
         res.status(500).json({message: "Could not get numbers", error: error.toString()})
@@ -16,11 +17,12 @@ const addNumber = async (req: Request, res: Response): Promise<void> => {
     console.log("Creating Number")
     try {
         const {name, description, number} = req.body as Pick<PhoneNumber, "name" | "description" | "number">
-
         const newRecord: PhoneNumber = new PhoneNumberDao({
             name,
             description,
-            number
+            number,
+            // @ts-ignore
+            user: req.userId
         });
 
         await newRecord.save();

@@ -1,16 +1,17 @@
 import { Router } from "express"
 import {addNumber, deleteNumber, updateNumber, getNumbers} from "../service/phoneNumberService";
+import {isAdmin, verifyToken} from "../auth/jwtAuth";
 
 
 
 const router = Router();
 
-router.get('/numbers', getNumbers);
+router.get('/api/numbers', [verifyToken], getNumbers);
 
-router.post('/number', addNumber);
+router.post('/api/number', [verifyToken], addNumber);
 
-router.put('/number/:id', updateNumber);
+router.put('/api/number/:id', [verifyToken], updateNumber);
 
-router.delete('/number/:id', deleteNumber);
+router.delete('/api/number/:id', [verifyToken, isAdmin], deleteNumber);
 
 export default router;
