@@ -1,6 +1,8 @@
 import React from 'react';
-import {Outlet} from 'react-router-dom';
-import {makeStyles} from '@material-ui/core';
+import {Link, Outlet} from 'react-router-dom';
+import {Button, makeStyles} from '@material-ui/core';
+import Header from "../components/navigation/Header";
+import AppLink from "../components/navigation/NavLink";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -12,9 +14,15 @@ const UnauthenticatedLayout = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <Outlet/>
-        </div>
+        <>
+            <Header>
+                <AppLink to={"signup"} text={"Sign Up"} />
+                <AppLink to={"login"} text={"Login"} />
+            </Header>
+            <div className={classes.root}>
+                <Outlet/>
+            </div>
+        </>
     );
 };
 

@@ -7,6 +7,7 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import {rootReducer} from "./config/rootReducer";
+import {CssBaseline} from "@material-ui/core";
 
 const store = createStore(
     rootReducer,
@@ -17,6 +18,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
+                <CssBaseline />
                 <App/>
             </BrowserRouter>
         </Provider>

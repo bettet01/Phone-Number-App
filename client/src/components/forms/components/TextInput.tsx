@@ -17,7 +17,7 @@ export interface TextInputProps {
 const TextInput = ({label, ...props}: TextInputProps) => {
     const classes = useStyles();
 
-    const [field, meta] = useField(props as FieldHookConfig<any>)
+    const [field, meta] = useField(props)
     return (
         <>
             <TextField className={classes.input} variant={"outlined"} {...props} label={label} {...field} error={!!(meta.error && meta.touched)} helperText={meta.error} />
