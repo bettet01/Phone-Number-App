@@ -7,9 +7,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {UserState} from "../../types/UserTypes";
 import {RootState} from "../../redux/rootReducer";
 import {signUpUsernameAndPassword} from "../../redux/actions/userActions";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 import {useState} from "react";
 import TCModal from "../modals/T&CModal";
+import NavLink from "../navigation/NavLink";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginTop: 20
+    },
+    loginNote: {
+        marginTop: 30
     }
 }));
 
@@ -76,7 +80,8 @@ const SignupForm = () => {
                         <TextInput label={"Username"} name={"username"} placeholder={"letsHaveFun69"}/>
                         <TextInput label={"Email"} name={"email"} placeholder={"email@example.com"}/>
                         <TextInput label={"Password"} name={"password"} type={"password"} placeholder={"********"}/>
-                        <CheckboxInput name={"acceptedTerms"}>I accept the {<strong onClick={() => setModalState(true)}>terms and conditions</strong>}</CheckboxInput>
+                        <CheckboxInput name={"acceptedTerms"}>I accept the {<strong onClick={() => setModalState(true)}>terms
+                            and conditions</strong>}</CheckboxInput>
                         <Button className={classes.button} disabled={userState.loading} color={"primary"}
                                 variant={"contained"} type={"submit"}>Sign
                             up</Button>
@@ -84,8 +89,10 @@ const SignupForm = () => {
                 </Formik>
                 {userState.errorMessage && <div>{userState.errorMessage}</div>}
                 {userState.user && <Navigate to={"/app"}/>}
+                <Typography className={classes.loginNote}>already have an account? login <Link style={{color: 'blue'}}
+                                                                                               to={"/login"}><strong>here</strong></Link></Typography>
             </Paper>
-            <TCModal open={modalState} handleClose={() => setModalState(false)} />
+            <TCModal open={modalState} handleClose={() => setModalState(false)}/>
         </>
     )
 }

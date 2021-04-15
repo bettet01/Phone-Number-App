@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../redux/rootReducer";
 import {signInUsernameAndPassword} from "../../redux/actions/userActions";
 import {UserState} from "../../types/UserTypes";
-import {Navigate} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
         marginTop: 20
+    },
+    signupNote: {
+        marginTop: 30
     }
 }));
 
@@ -63,8 +66,13 @@ const LoginForm = () => {
                             variant={"contained"} type={"submit"}>Login</Button>
                 </Form>
             </Formik>
-            { userState.errorMessage && <div>{userState.errorMessage}</div>}
+            {userState.errorMessage && <div>{userState.errorMessage}</div>}
             {userState.user && <Navigate to={"/app"}/>}
+            <Typography className={classes.signupNote}>New here? &nbsp;
+                <Link style={{color: 'blue'}} to={"/signup"}>
+                    Create an account
+                </Link>
+            </Typography>
         </Paper>
     )
 }
