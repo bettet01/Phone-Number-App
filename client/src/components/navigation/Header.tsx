@@ -19,12 +19,20 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         flexGrow: 1,
     },
+    phoneMenuButtons: {
+        "& *": {
+          margin: 3
+        },
+        display: 'flex',
+        justifyContent: 'center'
+    }
 }));
 
 const Header = ({children}: HeaderProps) => {
     const classes = useStyles();
     return (
-        <AppBar position="static">
+        // @ts-ignore
+        <AppBar color={"white"} position="static">
             <Toolbar>
                 <div className={classes.title}>
                     <Link className={classes.link} to={"/"}>
@@ -39,6 +47,11 @@ const Header = ({children}: HeaderProps) => {
                     </Hidden>
                 </div>
             </Toolbar>
+            <Hidden lgUp>
+                <div className={classes.phoneMenuButtons}>
+                    {children}
+                </div>
+            </Hidden>
         </AppBar>
     )
 }

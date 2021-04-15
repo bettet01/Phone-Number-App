@@ -1,9 +1,12 @@
 import {Button, makeStyles, Paper, Typography} from "@material-ui/core";
 import {Form, Formik} from "formik";
 import * as Yup from "yup";
-import http from "../../config/authorizationInterceptor";
 import TextInput from "./components/TextInput";
-
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../redux/rootReducer";
+import {signInUsernameAndPassword} from "../../redux/actions/userActions";
+import {UserState} from "../../types/UserTypes";
+import {Navigate} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -29,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 const LoginForm = () => {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const userState: UserState = useSelector((state: RootState) => state.UserReducer)
     return (
         <Paper className={classes.paper}>
             <Typography className={classes.title} variant={"h1"}>Login</Typography>
@@ -47,20 +52,19 @@ const LoginForm = () => {
                         .min(7, "Password must be at least 7 characters long")
                         .required("Password is required"),
                 })}
-                onSubmit={(values, {setSubmitting}) => {
-                    http.get("http://localhost:8000/api/numbers").then((res) => {
-                        console.log(res);
-                    }).catch((err) => {
-                        console.log("message " + err)
-                    })
+                onSubmit={(values) => {
+                    dispatch(signInUsernameAndPassword(values))
                 }}
             >
                 <Form className={classes.form}>
                     <TextInput label={"Username"} name={"username"} placeholder={"letsHaveFun69"}/>
                     <TextInput label={"Password"} name={"password"} type={"password"} placeholder={"********"}/>
-                    <Button className={classes.button} color={"primary"} variant={"contained"} type={"submit"}>Login</Button>
+                    <Button className={classes.button} disabled={userState.loading} color={"primary"}
+                            variant={"contained"} type={"submit"}>Login</Button>
                 </Form>
             </Formik>
+            { userState.errorMessage && <div>{userState.errorMessage}</div>}
+            {userState.user && <Navigate to={"/app"}/>}
         </Paper>
     )
 }

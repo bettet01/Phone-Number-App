@@ -5,7 +5,7 @@ const http = axios.create();
 http.interceptors.request.use(
     request => {
         if (!(request.url?.includes("signup") || request.url?.includes("signin"))) {
-            request.headers["Authorization"] = 'Bearer iAmATokenSomeday';
+            request.headers["Authorization"] = `Bearer ${localStorage.getItem('token')}`;
         }
         return request;
     },
