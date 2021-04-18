@@ -16,6 +16,7 @@
 
 ## Features
     - fully authorized backend with jwt security
+    - authorized page display with permission based routing for view links and pages based on user permissions
 
 
 ## Setup
