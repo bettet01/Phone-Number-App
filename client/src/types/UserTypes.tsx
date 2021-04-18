@@ -5,6 +5,13 @@ export enum Roles {
     ROLE_ADMIN = "ROLE_ADMIN"
 }
 
+export interface RoleObject {
+    _id: string;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
 export enum UserActionEnums {
     USER_LOADING = "USER_LOADING",
     USER_CREDS_SUCCESS = "USER_CREDS_SUCCESS",
@@ -21,7 +28,18 @@ export interface User {
     id: string;
     username: string;
     email: string;
-    roles: Roles[];
+    roles: Roles[] | RoleObject[];
+}
+
+export interface UserDto {
+    id: string;
+    username: string;
+    email: string;
+    roles: RoleObject[];
+}
+
+export interface UserResponse {
+    users: UserDto[]
 }
 
 export interface UserAcceptanceResponse extends User {

@@ -11,7 +11,7 @@ import userRoutes from "./routes/userRoutes";
 import mongoose, {ConnectionOptions} from 'mongoose'
 import {initializeRoles} from "./auth/initilizeRoles";
 // db setup
-const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0.yxwjh.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`
+const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_DB}?retryWrites=true&w=majority`
 const options: ConnectionOptions = { autoCreate: true, autoIndex: true, useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.set("useFindAndModify", false)
 

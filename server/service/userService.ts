@@ -2,12 +2,13 @@ import {Request, Response} from "express";
 import User from "../models/User";
 import * as bcrypt from 'bcryptjs'
 import Role from "../models/Role";
-import {Role as RoleType} from "../types/User"
+import {Role as RoleType, UserDto} from "../types/User"
 import {Error} from "mongoose";
 import jwt from 'jsonwebtoken';
+import UserDao from "../models/User";
 
 export const signUp = (req: Request, res: Response) => {
-    const secret =  process.env.SECRET || "Hello_World"
+    const secret = process.env.SECRET || "Hello_World"
     const user = new User({
         username: req.body.username,
         email: req.body.email,
@@ -32,7 +33,7 @@ export const signUp = (req: Request, res: Response) => {
                     return;
                 }
 
-                const token = jwt.sign({ id: user.id }, secret, {
+                const token = jwt.sign({id: user.id}, secret, {
                     expiresIn: 86400 // 24 hours
                 });
 
@@ -50,7 +51,7 @@ export const signUp = (req: Request, res: Response) => {
 };
 
 export const signIn = (req: Request, res: Response) => {
-    const secret =  process.env.SECRET || "Hello_World"
+    const secret = process.env.SECRET || "Hello_World"
     User.findOne({
         username: req.body.username
     })
@@ -95,3 +96,19 @@ export const signIn = (req: Request, res: Response) => {
             });
         });
 };
+
+export const getUsers = async (req: Request, res: Response) => {
+    try {
+        const users = await UserDao.find().populate("roles").exec();
+        const userResponse = users.map(user => {
+            return {
+                username: user.username,
+                email: user.email,
+                roles: user.roles
+            } as UserDto
+        })
+        res.status(200).json({users: userResponse})
+    } catch (e) {
+        res.status(500).json({message: "Could not get users", error: e.toString()})
+    }
+}

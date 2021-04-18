@@ -1,6 +1,6 @@
 import {UserActionEnums, UserState} from "../../types/UserTypes";
 import produce from "immer";
-import {UserAction} from "../actions/userActions";
+import {Action} from "../../types/GenericTypes";
 
 
 export const defaultState: UserState = {
@@ -9,7 +9,7 @@ export const defaultState: UserState = {
     errorMessage: undefined,
 }
 
-const UserReducer = produce((state = defaultState, action: UserAction) => {
+const UserReducer = produce((state = defaultState, action: Action) => {
     switch (action.type) {
         case UserActionEnums.USER_LOADING:
             state.loading = true;

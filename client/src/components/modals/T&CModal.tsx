@@ -44,7 +44,7 @@ const TCModal = ({open, handleClose}: TCModalProps) => {
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button variant={"contained"} onClick={handleClose} color="primary">
                     Close
                 </Button>
             </DialogActions>

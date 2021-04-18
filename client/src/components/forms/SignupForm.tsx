@@ -10,7 +10,6 @@ import {signUpUsernameAndPassword} from "../../redux/actions/userActions";
 import {Link, Navigate} from "react-router-dom";
 import {useState} from "react";
 import TCModal from "../modals/T&CModal";
-import NavLink from "../navigation/NavLink";
 
 const useStyles = makeStyles((theme) => ({
     form: {

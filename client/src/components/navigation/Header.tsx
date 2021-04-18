@@ -32,7 +32,7 @@ const Header = ({children}: HeaderProps) => {
     const classes = useStyles();
     return (
         // @ts-ignore
-        <AppBar color={"white"} position="static">
+        <AppBar color={"transparent"} position="static">
             <Toolbar>
                 <div className={classes.title}>
                     <Link className={classes.link} to={"/"}>

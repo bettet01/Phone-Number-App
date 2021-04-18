@@ -2,11 +2,6 @@ import {UserActionEnums, UserSignupPayload} from "../../types/UserTypes";
 import {loginUser, signupUser} from "../../service/backendApi";
 
 
-export interface UserAction {
-    type: string;
-    payload?: any;
-}
-
 export const signUpUsernameAndPassword = (payload: UserSignupPayload) => async (dispatch: any) => {
     dispatch({
         type: UserActionEnums.USER_LOADING,

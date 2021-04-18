@@ -25,9 +25,10 @@
     1. clone repo
     2. in parent directory run npm install
     3. export the following enviroment variables
-        MONGO_USER
-        MONGO_PASSWORD
-        MONGO_DB
-        API_PORT
-        SECRET (bcrypt encryption secret) 
+        MONGO_USER        / test_username
+        MONGO_PASSWORD    / iAmAPassword
+        MONGO_HOST        / cluster0.yxwjh.mongodb.net
+        MONGO_DB          / phone_number_db
+        API_PORT          / 8001
+        SECRET            / anyStringYouWant
     4. run npm start in parent directory

@@ -10,3 +10,9 @@ export interface User extends Document {
     password: string,
     roles: Role[]
 }
+
+export interface UserDto {
+    username: string,
+    email: string,
+    roles: Role[]
+}
