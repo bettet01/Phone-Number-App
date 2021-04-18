@@ -2,21 +2,8 @@ import {colors, createMuiTheme} from '@material-ui/core';
 import shadows from './shadows';
 import typography from './typography';
 
-
-declare module "@material-ui/core/styles/createPalette" {
-    interface Palette {
-        white: Palette['primary'];
-        red: Palette['primary'];
-    }
-    interface PaletteOptions {
-        white: PaletteOptions['primary'];
-        red: PaletteOptions['primary'];
-    }
-}
-
 export const lightTheme = createMuiTheme({
         palette: {
-            type: 'light',
             primary: {
                 main: colors.green[200],
             },

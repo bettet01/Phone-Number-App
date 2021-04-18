@@ -7,7 +7,7 @@ import {Error} from "mongoose";
 import jwt from 'jsonwebtoken';
 import UserDao from "../models/User";
 
-export const signUp = (req: Request, res: Response) => {
+export const signUp = async (req: Request, res: Response) => {
     const secret = process.env.SECRET || "Hello_World"
     const user = new User({
         username: req.body.username,
@@ -15,19 +15,36 @@ export const signUp = (req: Request, res: Response) => {
         password: bcrypt.hashSync(req.body.password, 8)
     });
 
+    // check to see if we have any users yet
+    const users = await UserDao.find();
+
     user.save((err, user) => {
         if (err) {
             res.status(500).send({message: err});
             return;
         }
 
-        Role.findOne({name: "user"}, (err: Error, role: RoleType) => {
+
+        Role.findOne({name: "user"}, async (err: Error, role: RoleType) => {
             if (err) {
                 res.status(500).send({message: err});
                 return;
             }
-            user.roles = [role._id];
-            user.save(err => {
+
+            let roles = [role._id]
+            if (users.length === 0) {
+                await Role.findOne({name: 'admin'}, (err: Error, adminRole: RoleType) => {
+                    roles.push(adminRole._id)
+                })
+            }
+
+            user.roles = roles;
+            await user.save(err => {
+                let roleEnums = ["ROLE_USER"]
+                if (users.length === 0) {
+                    roleEnums.push("ROLE_ADMIN")
+                }
+
                 if (err) {
                     res.status(500).send({message: err});
                     return;
@@ -42,7 +59,7 @@ export const signUp = (req: Request, res: Response) => {
                     id: user._id,
                     username: user.username,
                     email: user.email,
-                    roles: ["ROLE_USER"],
+                    roles: roleEnums,
                     accessToken: token
                 });
             });
