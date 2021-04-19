@@ -7,12 +7,11 @@ const getNumbers = async (req: Request, res: Response): Promise<void> => {
     try {
         let numbers: PhoneNumber[];
 
-        // get desired result if useing a query param, otherwise return everything
+        // get desired result if using a query param, otherwise return everything
         if (req.query.name) {
             // @ts-ignore
             numbers = await PhoneNumberDao.find({$and:[{user: req.userId}, {name: { $regex: req.query.name, $options: "i"}}]});
         } else {
-            console.log("hit no query path")
             // @ts-ignore
             numbers = await PhoneNumberDao.find({user: req.userId});
         }
