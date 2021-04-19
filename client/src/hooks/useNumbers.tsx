@@ -11,8 +11,8 @@ const useNumbers = () => {
         refreshPhoneNumbers();
     }, [])
 
-    const refreshPhoneNumbers = () => {
-        getPhoneNumbers().then((res) => {
+    const refreshPhoneNumbers = (value?: string) => {
+        getPhoneNumbers(value).then((res) => {
             setNumbers(res.data.numbers);
             setError(null);
         }).catch(() => {

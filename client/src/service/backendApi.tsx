@@ -16,8 +16,12 @@ export const getUsers = () => {
     return http.get<UserResponse>(`${baseApi}/users`);
 }
 
-export const getPhoneNumbers = () => {
-    return http.get<PhoneNumberResponse>(`${baseApi}/numbers`);
+export const getPhoneNumbers = (value?: string) => {
+    if (value) {
+        return http.get<PhoneNumberResponse>(`${baseApi}/numbers?name=${value}`);
+    } else {
+        return http.get<PhoneNumberResponse>(`${baseApi}/numbers`);
+    }
 }
 
 export const createPhoneNumber = (payload: PhoneNumber) => {
