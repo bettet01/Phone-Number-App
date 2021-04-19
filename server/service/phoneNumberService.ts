@@ -5,8 +5,17 @@ import PhoneNumberDao from "../models/PhoneNumber";
 const getNumbers = async (req: Request, res: Response): Promise<void> => {
     console.log("Getting Numbers")
     try {
-        // @ts-ignore
-        const numbers: PhoneNumber[] = await PhoneNumberDao.find({user: req.userId});
+        let numbers: PhoneNumber[];
+
+        // get desired result if useing a query param, otherwise return everything
+        if (req.query.name) {
+            // @ts-ignore
+            numbers = await PhoneNumberDao.find({$and:[{user: req.userId}, {name: { $regex: req.query.name, $options: "i"}}]});
+        } else {
+            console.log("hit no query path")
+            // @ts-ignore
+            numbers = await PhoneNumberDao.find({user: req.userId});
+        }
         res.status(200).json({numbers: numbers} as NumbersResponse)
     } catch (error) {
         res.status(500).json({message: "Could not get numbers", error: error.toString()})
