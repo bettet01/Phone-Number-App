@@ -10,12 +10,6 @@ export const lightTheme = createMuiTheme({
             secondary: {
                 main: colors.amber[700]
             },
-            red: {
-                main: colors.red[500]
-            },
-            white: {
-                main: colors.grey[100]
-            }
         },
         shadows,
         typography,
@@ -31,12 +25,6 @@ export const darkTheme = createMuiTheme({
         secondary: {
             main: colors.teal[500]
         },
-        white: {
-            main: colors.grey[100]
-        },
-        red: {
-            main: colors.red[500]
-        }
     },
     shadows,
     typography
